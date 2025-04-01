@@ -49,6 +49,12 @@ The built app will be available in the `src-tauri/target/release/` folder.
 
 ---
 
+## 🧑‍💻 Demo
+
+![Demo](./demo/demo.gif)
+
+---
+
 ## 🎨 Usage Guide
 1. **Enter Google Gemini ApiKey** - Enter the ApiKey and click add button. This will save & store the ApiKey for later use.
 2. **Upload an Image** – Click the upload button and select an image.
