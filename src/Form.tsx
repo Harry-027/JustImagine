@@ -13,8 +13,10 @@ const UploadAndPrompt = ({ onSubmit, onResult, setResult, onLoading }: any) => {
       
       if(e.target.files && e.target.files.length > 0) { 
         const uploadedFile = e.target.files[0];
-        if (!uploadedFile.type.startsWith('image/')) {
-            setWarning('Please upload an image file.');
+        if (!uploadedFile.type.startsWith('image/') || 
+            uploadedFile.type.startsWith('image/svg') ||
+            uploadedFile.type.startsWith('image/gif')) {
+            setWarning('Please upload an image file (only jpg, jpeg or png).');
             return;
         }
         if (uploadedFile) {
@@ -50,7 +52,7 @@ const UploadAndPrompt = ({ onSubmit, onResult, setResult, onLoading }: any) => {
                     onChange={handleFileChange}
                 />
             </div>
-          <Preview warning={warning} preview={preview} prompt={prompt} onPromptChange={handlePromptChange} onSubmit={handleSubmit} onLoading={onLoading} result={onResult} />
+          <Preview warning={warning} preview={preview} prompt={prompt} onPromptChange={handlePromptChange} onSubmit={handleSubmit} onLoading={onLoading} result={onResult} fileName={file?.name} />
         </div>
     </div>
     );

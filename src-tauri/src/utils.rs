@@ -1,7 +1,10 @@
-use crate::data_model::{Content, GenConfig, GenerateContentRequest, GenerateContentResponse, InlineData, Part, RequestParams};
+use crate::data_model::{
+    Content, GenConfig, GenerateContentRequest, GenerateContentResponse, InlineData, Part,
+    RequestParams,
+};
 use reqwest::Client;
 
-use std::{io,vec};
+use std::{io, vec};
 
 pub async fn process_request<'a>(
     req_param: &RequestParams<'a>,
@@ -28,20 +31,21 @@ pub async fn process_request<'a>(
         ],
     }];
 
-    let request_body = GenerateContentRequest { 
+    let request_body = GenerateContentRequest {
         contents,
-        generation_config: GenConfig { response_modalities: vec!["Text".to_string(), "Image".to_string()] }
-        
+        generation_config: GenConfig {
+            response_modalities: vec!["Text".to_string(), "Image".to_string()],
+        },
     };
     match client.post(&endpoint).json(&request_body).send().await {
         Ok(response) => {
             let status = response.status();
             if status != 200 {
                 let msg = response.text().await?;
-                let err_msg = format!("{}::{}",status,msg);
+                let err_msg = format!("{}::{}", status, msg);
                 Err(Box::new(io::Error::new(io::ErrorKind::Other, err_msg)))
             } else {
-                let json_resp =  response.json::<GenerateContentResponse>().await?;
+                let json_resp = response.json::<GenerateContentResponse>().await?;
                 let mut image_response: Option<(String, String)> = None;
                 let mut text_response = String::new();
                 for candidate in json_resp.candidates {

@@ -21,29 +21,29 @@ pub struct Content {
 
 #[derive(Debug, Serialize)]
 pub struct GenConfig {
-    #[serde(rename = "responseModalities")] 
-    pub response_modalities: Vec<String>
+    #[serde(rename = "responseModalities")]
+    pub response_modalities: Vec<String>,
 }
 
 #[derive(Debug, Serialize)]
 pub struct GenerateContentRequest {
     pub contents: Vec<Content>,
-    #[serde(rename = "generationConfig")] 
+    #[serde(rename = "generationConfig")]
     pub generation_config: GenConfig,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct InlineDataResponse {
-    #[serde(rename = "mimeType")] 
+    #[serde(rename = "mimeType")]
     pub mime_type: String,
     pub data: String,
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(rename_all = "snake_case")] 
+#[serde(rename_all = "snake_case")]
 pub struct PartResponse {
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "inlineData")] 
+    #[serde(rename = "inlineData")]
     pub inline_data: Option<InlineDataResponse>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,

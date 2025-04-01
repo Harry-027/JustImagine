@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadAndPrompt from "./Form";
 import "./App.css";
 import { invoke } from "@tauri-apps/api/core";
+import { exists, BaseDirectory, readFile, create } from '@tauri-apps/plugin-fs';
+
+const apiKeyFile = 'JustImagineApiKey.txt';
 
 function App() {
   const [apiKey, setApiKey] = useState("");
@@ -9,7 +12,29 @@ function App() {
   const [result, setResult] = useState<Array<string>>([]);
   const [loading, setLoading] = useState(false);
 
-  function showFormComponent() {
+  useEffect(() => {
+    const loadFile = async () => {
+      try {
+          let apiKeyExists = await exists(apiKeyFile, { baseDir: BaseDirectory.Download });
+          if (apiKeyExists) {
+            const content = await readFile(apiKeyFile, { baseDir: BaseDirectory.Download });
+            const decoder = new TextDecoder('utf-8');
+            const apiKey = decoder.decode(content);
+              setApiKey(apiKey);
+              setShowForm(true);
+          }
+      } catch (error) {
+        console.error('Error loading ApiKey:', error);
+      } 
+    };
+
+    loadFile();
+  }, []);
+
+  async function showFormComponent() {
+    const file = await create(apiKeyFile, { baseDir: BaseDirectory.Download});
+    await file.write(new TextEncoder().encode(apiKey));
+    await file.close();
     setShowForm(true);
   }
 
