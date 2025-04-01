@@ -27,4 +27,5 @@ tokio = { version = "1", features = ["full"] }
 image = "0.24"
 base64 = "0.22"
 uuid = { version = "1", features = ["v4"] }
+tauri-plugin-fs = "2"
 

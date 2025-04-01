@@ -8,8 +8,8 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "fs:default",
     "fs:allow-download-write",
-    "fs:allow-download-read"
+    "fs:allow-download-read",
+    "fs:default"
   ]
 }
