@@ -1,7 +1,8 @@
 import { create, BaseDirectory } from '@tauri-apps/plugin-fs';
 import { useState } from 'react';
+import WarningComponent from './WarningComponent';
 
-const Preview = ({warning, preview, prompt, result, fileName, onPromptChange, onLoading, onSubmit}: any) => {
+const Preview = ({warning, preview, prompt, result, fileName, onPromptChange, onLoading, onSubmit, onErr}: any) => {
     if (warning) return null;
     const [downloadStatus, setDownloadStatus] = useState(false);
     const base64ToUint8Array = (base64: string) => {
@@ -23,6 +24,7 @@ const Preview = ({warning, preview, prompt, result, fileName, onPromptChange, on
             const file = await create(`${fileName}_just_imagine.png`, { baseDir: BaseDirectory.Download });
             await file.write(base64ToUint8Array(result));
             await file.close();
+            setTimeout(() => setDownloadStatus(false), 2000);
             setDownloadStatus(true);
           } catch (error) {
             console.error("Error saving image:", error);
@@ -50,6 +52,9 @@ const Preview = ({warning, preview, prompt, result, fileName, onPromptChange, on
                          }
                          {
                                 onLoading && <p>Loading...</p>
+                         }
+                         {
+                             onErr && <WarningComponent message={onErr} />
                          }
                     </div>
                     <form className="row" onSubmit={(e) => {e.preventDefault(); onSubmit();}}>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import WarningComponent from './WarningComponent';
 import Preview from './Preview';
 
-const UploadAndPrompt = ({ onSubmit, onResult, setResult, onLoading }: any) => {
+const UploadAndPrompt = ({ onSubmit, onResult, setResult, onLoading, onError }: any) => {
 
     const [file, setFile] = useState<File | null>(null);
     const [prompt, setPrompt] = useState('');
@@ -40,9 +40,8 @@ const UploadAndPrompt = ({ onSubmit, onResult, setResult, onLoading }: any) => {
           setWarning('Please upload a file and enter a prompt to update the image.');
         }
       };
-
     return (
-     <div className="sub-container">
+      <div className="container">
         <WarningComponent message={warning} />
         <div className="sub-container">
             <div className="row">
@@ -52,7 +51,7 @@ const UploadAndPrompt = ({ onSubmit, onResult, setResult, onLoading }: any) => {
                     onChange={handleFileChange}
                 />
             </div>
-          <Preview warning={warning} preview={preview} prompt={prompt} onPromptChange={handlePromptChange} onSubmit={handleSubmit} onLoading={onLoading} result={onResult} fileName={file?.name} />
+          <Preview warning={warning} preview={preview} prompt={prompt} onPromptChange={handlePromptChange} onSubmit={handleSubmit} onLoading={onLoading} result={onResult} fileName={file?.name} onErr={onError} />
         </div>
     </div>
     );

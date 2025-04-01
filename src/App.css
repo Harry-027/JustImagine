@@ -49,8 +49,16 @@
   filter: drop-shadow(0 0 2em #24c8db);
 }
 
-.custom-width {
-  width: 90%;
+.api-key {
+  justify-content: right;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%; 
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 70%;
+  transition: 0.3s ease;
 }
 
 .row {

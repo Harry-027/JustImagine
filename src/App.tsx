@@ -3,6 +3,7 @@ import UploadAndPrompt from "./Form";
 import "./App.css";
 import { invoke } from "@tauri-apps/api/core";
 import { exists, BaseDirectory, readFile, create } from '@tauri-apps/plugin-fs';
+import ApiKey from "./ApiKey";
 
 const apiKeyFile = 'JustImagineApiKey.txt';
 
@@ -11,6 +12,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [result, setResult] = useState<Array<string>>([]);
   const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
     const loadFile = async () => {
@@ -35,6 +37,7 @@ function App() {
     const file = await create(apiKeyFile, { baseDir: BaseDirectory.Download});
     await file.write(new TextEncoder().encode(apiKey));
     await file.close();
+    setErrMsg('');
     setShowForm(true);
   }
 
@@ -61,9 +64,10 @@ function App() {
               setResult([textData]);
             }
             setLoading(false);
-          } catch (error) {
+          } catch (error: any) {
             console.error('Upload failed:', error);
             setLoading(false);
+            setErrMsg(`Upload failed. Please try again: ${error}`);
           }
         } else {
             console.error('Unexpected file format');
@@ -73,30 +77,19 @@ function App() {
     }
   }
 
+  const handleUpdateKey = () => {
+    setShowForm(false);
+  }
+
   return (
     <main className="container">
-        <h2>Just Imagine</h2>
-      { showForm ? <UploadAndPrompt onSubmit={handleSubmit} onResult={result} setResult={setResult} onLoading={loading} /> : 
-      <div>
-        <div className="row">
-            <img src="/logo.svg" className="logo ai" alt="Just Imagine logo" />
+      { showForm && <div>
+            <button className="api-key" onClick={handleUpdateKey}>Update ApiKey</button>
         </div>
-        <p>Enter your Google Gemini API Key</p>
-        <form
-          className="row"
-          onSubmit={(e) => {
-            e.preventDefault();
-            showFormComponent();
-          }}
-        >
-        <input
-            id="key-input"
-            onChange={(e) => setApiKey(e.currentTarget.value)}
-            placeholder="API Key here..."
-        />
-        <button type="submit">+</button>
-        </form>
-      </div>
+      }
+        <h2>Just Imagine</h2>
+      { showForm ? <UploadAndPrompt onSubmit={handleSubmit} onResult={result} setResult={setResult} onLoading={loading} onError={errMsg} /> : 
+        <ApiKey showFormComponent={showFormComponent} setApiKey={setApiKey} />
 }
     </main>
   );
