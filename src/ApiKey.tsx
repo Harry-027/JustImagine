@@ -12,7 +12,7 @@ const ApiKey = ({showFormComponent, setApiKey}: any) => {
             showFormComponent();
           }}
         >
-        <input
+        <input type="password"
             id="key-input"
             onChange={(e) => setApiKey(e.currentTarget.value)}
             placeholder="API Key here..."
