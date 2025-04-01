@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6A11CB;" />
+      <stop offset="100%" style="stop-color:#2575FC;" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="30" fill="url(#gradient)" />
+
+  <!-- Image Frame -->
+  <rect x="40" y="40" width="120" height="80" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="4" />
+
+  <!-- AI Symbol -->
+  <circle cx="150" cy="150" r="25" fill="#6A11CB" stroke="#fff" stroke-width="4" />
+  <text x="150" y="155" font-family="Arial" font-size="20" fill="#fff" text-anchor="middle">AI</text>
+
+  <!-- Paintbrush Icon -->
+  <path d="M80 110 L95 140 L85 150 L70 120 Z" fill="#FFD700" stroke="#B8860B" stroke-width="3" />
+  <circle cx="85" cy="145" r="7" fill="#FF4500" />
+
+  <!-- Stylized Effect -->
+  <path d="M60 60 C90 40, 120 80, 150 60" stroke="#2575FC" stroke-width="4" fill="none" />
+
+  <!-- Shine Effect -->
+  <circle cx="50" cy="50" r="8" fill="white" opacity="0.6" />
+</svg>
