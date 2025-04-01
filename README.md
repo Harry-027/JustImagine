@@ -24,7 +24,7 @@ Ensure you have the following installed:
 ### **1️⃣ Clone the Repository**
 ```sh
 git clone https://github.com/Harry-027/JustImagine.git
-cd tauri-gemini-image-editor
+cd JustImagine
 ```
 
 ### **2️⃣ Install Dependencies**
@@ -50,10 +50,11 @@ The built app will be available in the `src-tauri/target/release/` folder.
 ---
 
 ## 🎨 Usage Guide
-1. **Upload an Image** – Click the upload button and select an image.
-2. **Enter a Prompt** – Describe how you want the image to be edited (e.g., "Make it black and white").
-3. **Process the Image** – Click the "Edit" button to apply AI-powered modifications.
-4. **Download the Edited Image** – Save the result locally.
+1. **Enter Google Gemini ApiKey** - Enter the ApiKey and click add button. This will save & store the ApiKey for later use.
+2. **Upload an Image** – Click the upload button and select an image.
+3. **Enter a Prompt** – Describe how you want the image to be edited (e.g., "Make it black and white").
+4. **Process the Image** – Click the "Edit" button to apply AI-powered modifications.
+5. **Download the Edited Image** – Save the result locally.
 
 ---
 
